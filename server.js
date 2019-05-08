@@ -50,6 +50,7 @@ client.on("message", async message => {
     // args = ["Is", "this", "the", "real", "life?"]
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
+    const roll = utils.roll(command);
 
     // Let's go with a few common example commands! Feel free to delete or change those.
     if (command === "ping") {
@@ -73,22 +74,10 @@ client.on("message", async message => {
         await message.channel.send('May 4th');
     }
 
-    utils.roll(command);
+    if (roll.isRoll) {
+        let result = Math.floor(Math.random() * roll.dice * roll.multiplier) + 1 + roll.addition;
 
-    if (command === "1d20") {
-        // Calculates ping between sending a message and editing it, giving a nice round-trip latency.
-        // The second ping is an average latency between the bot and the websocket server (one-way, not round-trip)
-        let roll = Math.floor(Math.random() * 20) + 1;
-
-        if (roll > 10) roll = `yay a ${roll}`;
-        if (roll < 4) roll = `hah you got a ${roll}`;
-        if (roll < 2) roll = `hahahaha .... a ${roll}`;
-        if (roll === 1) roll = `don't play the lottery.... you got a 1`;
-
-        if (message.author.username !== 'dokinoki') roll = `lol you got a 1`;
-        else roll = `oh great dokil its a 20`;
-
-        await message.channel.send(roll);
+        await message.channel.send(result);
     }
 
     if (command === "say") {
