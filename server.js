@@ -75,7 +75,7 @@ client.on("message", async message => {
     }
 
     if (roll.isRoll) {
-        let result = Math.floor(Math.random() * roll.dice * roll.multiplier) + 1 + roll.addition;
+        let result = Math.floor(Math.random() * roll.dice * roll.multiplier) + (roll.addition * roll.multiplier);
 
         await message.channel.send(result);
     }

@@ -1,5 +1,5 @@
 export const roll = (str) => {
-    const regex = /(\d+)d(\d+)|\+(\d)/gm;
+    const regex = /(\d+)d(\d+)|\+(\d+)/gm;
     let m;
     let multiplier;
     let dice;
